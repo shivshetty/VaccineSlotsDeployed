@@ -40,7 +40,9 @@ export class AppComponent {
     });  
   }
 
+  /*unused function for now
   showFiltered(values: any){
     console.warn('function called')
   }
+  */
 }
