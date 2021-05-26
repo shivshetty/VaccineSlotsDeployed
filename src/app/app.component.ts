@@ -40,7 +40,7 @@ export class AppComponent {
     });  
   }
 
-  /*unused function for now
+  /*Function Not required
   showFiltered(values: any){
     console.warn('function called')
   }
