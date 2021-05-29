@@ -380,7 +380,7 @@
     <tr>
       <td>Center Name</td>
       <td>Address</td>
-      <td>State</td>
+      <td>Pincode</td>
       <td>date</td>
       <td>fees</td>
       <td>from -to</td>
@@ -392,7 +392,7 @@
     <tr *ngFor= "let item of slots.sessions | isValid :pincode:dose" >      
       <td>{{item.name}}</td>
       <td>{{item.address}}</td>
-      <td>{{item.state}}</td>
+      <td>{{item.pincode}}</td>
       <td>{{item.date}}</td>
       <td>{{item.fee}}</td>      
       <td>{{item.from}} - {{item.to}}</td>
