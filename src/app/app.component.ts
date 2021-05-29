@@ -24,7 +24,7 @@ export class AppComponent {
       terms: false
     });
 
-      this.fetchSlots.getData().subscribe(data=>{
+      this.fetchSlots.getSpecData().subscribe(data=>{
         //console.warn(data);
         this.slots= data;        
         //this.slot=this.alldata.sessions
