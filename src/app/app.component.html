@@ -360,7 +360,8 @@
   <form  [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup.value)" >
     <div class="form-group">
       <label for="slotDate">Slot Date</label>      
-      <input type="date"  class="form-control" id="slotDate" formControlName="slotDate" >
+      <input type="date"  class="form-control" id="slotDate" formControlName="slotDate" > 
+      <!-- <input type="text" id="test" [(ngModel)]="title" value="{{title}}" /> -->
       <button class="btn btn-primary" type="submit">Submit Form</button>
     </div>    
   </form>
@@ -389,7 +390,7 @@
       <td>Dose 1 Capacity</td>
       <td>Dose 2 Capacity</td>
     </tr>
-    <tr *ngFor= "let item of slots.sessions | isValid :pincode:dose" >      
+    <tr *ngFor= "let item of slots | isValid :pincode:dose" >      
       <td>{{item.name}}</td>
       <td>{{item.address}}</td>
       <td>{{item.pincode}}</td>

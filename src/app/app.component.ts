@@ -19,14 +19,13 @@ export class AppComponent {
   formGroup;
   constructor(private fetchSlots :VaccinesService,private formBuilder: FormBuilder)  {
     this.formGroup=this.formBuilder.group({
-      slotDate:new Date(),
-      email: '',
-      terms: false
+      slotDate:new Date()      
     });
-
+    
+console.warn(this.formGroup);
       this.fetchSlots.getSpecData().subscribe(data=>{
         //console.warn(data);
-        this.slots= data;        
+        this.slots=this.ReturnNonZeroes(data);        
         //this.slot=this.alldata.sessions
       });      
   }
@@ -36,9 +35,16 @@ export class AppComponent {
     slotDate = formatDate(slotDate,'dd-MM-yyyy','en');
     //alert(slotDate);
     this.fetchSlots.getSpecData(slotDate).subscribe(data=>{
-      this.slots= data;              
-    });  
-  }
+      this.slots=this.ReturnNonZeroes(data);         
+    });      
+    }
+    
+    ReturnNonZeroes(data:any){
+      return data.sessions.filter(function(datavals:any){
+        return  (datavals.available_capacity_dose1>0 || datavals.available_capacity_dose2>0 );
+      });
+    }
+  
 
   /*Function required for later
   showFiltered(values: any){
