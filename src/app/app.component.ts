@@ -20,6 +20,7 @@ export class AppComponent {
   formGroup;
   testdate:any;
   dateList:any[];
+  selected :any;
 
   constructor(private fetchSlots :VaccinesService,private formBuilder: FormBuilder)  {
     this.formGroup=this.formBuilder.group({
@@ -67,10 +68,7 @@ export class AppComponent {
         this.slots=this.ReturnNonZeroes(data);
         this.empty=this.ReturnEmpty(data);
       });  
-    }
-
-
-  
+    }  
 
   /*Function required for later
   showFiltered(values: any){
