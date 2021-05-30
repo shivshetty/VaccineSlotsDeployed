@@ -1,12 +1,353 @@
 <!DOCTYPE html><html lang="en"><head>
-  <meta charset="utf-8">
-  <title>VaccineSlots</title>
-  <base href="https://shivshetty.github.io/VaccineSlots/">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <meta charset="utf-8">
+    <title>VaccineSlots</title>
+    <base href="https://shivshetty.github.io/VaccineSlots/">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+            box-sizing: border-box;
+        }
+        
+        body,
+        html {
+            font: 18px sans-serif, Geneva, Arial;
+            font-weight: 400;
+            background-color: #f3f0f1;
+        }
+        /*---------------------------------------------*/
+        
+        input {
+            outline: none;
+            border: none;
+        }
+        
+        textarea:focus,
+        input:focus {
+            border-color: transparent !important;
+        }
+        
+        input:focus::-webkit-input-placeholder {
+            color: transparent;
+        }
+        
+        input:focus:-moz-placeholder {
+            color: transparent;
+        }
+        
+        input:focus::-moz-placeholder {
+            color: transparent;
+        }
+        
+        input:focus:-ms-input-placeholder {
+            color: transparent;
+        }
+        
+        textarea:focus::-webkit-input-placeholder {
+            color: transparent;
+        }
+        
+        textarea:focus:-moz-placeholder {
+            color: transparent;
+        }
+        
+        textarea:focus::-moz-placeholder {
+            color: transparent;
+        }
+        
+        textarea:focus:-ms-input-placeholder {
+            color: transparent;
+        }
+        
+        input::-webkit-input-placeholder {
+            color: #adadad;
+        }
+        
+        input:-moz-placeholder {
+            color: #adadad;
+        }
+        
+        input::-moz-placeholder {
+            color: #adadad;
+        }
+        
+        input:-ms-input-placeholder {
+            color: #adadad;
+        }
+        
+        textarea::-webkit-input-placeholder {
+            color: #adadad;
+        }
+        
+        textarea:-moz-placeholder {
+            color: #adadad;
+        }
+        
+        textarea::-moz-placeholder {
+            color: #adadad;
+        }
+        
+        textarea:-ms-input-placeholder {
+            color: #adadad;
+        }
+        /*---------------------------------------------*/
+        
+        button {
+            outline: none !important;
+            border: none;
+            background: transparent;
+        }
+        
+        button:hover {
+            cursor: pointer;
+        }
+        
+        iframe {
+            border: none !important;
+        }
+        
+        .slotList:after {
+            content: "";
+            clear: both;
+            display: block;
+        }
+        /*---------------------------------------------*/
+        
+        .filledup {
+            text-align: center;
+            font-weight: normal;
+            padding: 30px 0 15px;
+        }
+        
+        .container {
+            max-width: 1140px;
+            margin: 0 auto;
+        }
+        
+        .search,
+        .top-panel label {
+            transition: ease all 0.3s;
+        }
+        
+        .search:focus,
+        .top-panel input:checked+label {
+            box-shadow: 0 0 0 rgb(255 255 255 / 0%), 0 0 0 rgb(0 0 0 / 0%), inset -4px -4px 8px rgb(255 255 255 / 50%), inset 4px 4px 8px rgb(0 0 0 / 10%);
+            background-color: #f1f1f1;
+        }
+        
+        .top-panel input:checked+label:before {
+            content: "\2713";
+            margin-right: 5px;
+        }
+        
+        .search {
+            box-shadow: -6px -6px 10px rgb(255 255 255 / 80%), 6px 6px 10px rgb(0 0 0 / 20%), inset 0 0 0 rgb(255 255 255 / 0%), inset 0 0 0 rgb(0 0 0 / 0%);
+            background-color: #f3f0f1;
+            padding: 15px 20px;
+            border-radius: 22px;
+            text-align: center;
+            font-size: 16px;
+            font-weight: bold;
+            line-height: 22px;
+        }
+        
+        .top-panel {
+            padding: 20px 0;
+            text-align: center;
+        }
+        
+        .top-panel .checkbox {
+            display: none;
+        }
+        
+        .top-panel label {
+            padding: 15px;
+            border-radius: 22px;
+            background-color: #f3f0f1;
+            display: inline-block;
+            cursor: pointer;
+            box-shadow: -6px -6px 10px rgb(255 255 255 / 80%), 6px 6px 10px rgb(0 0 0 / 20%), inset 0 0 0 rgb(255 255 255 / 0%), inset 0 0 0 rgb(0 0 0 / 0%);
+            line-height: 22px;
+            margin-left: 40px;
+            width: 170px;
+        }
+        
+        .slotList {
+            margin-top: 30px;
+        }
+        
+        .slotList:empty:before {
+            content: "- No Slots Available -";
+            display: block;
+            text-align: center;
+            font-style: italic;
+            opacity: 0.2;
+            border-top: 1px solid;
+            border-bottom: 1px solid;
+            padding: 20px;
+        }
+        
+        .slotList.empty {
+            opacity: 0.3;
+        }
+        
+        .slotList .singleSlot {
+            float: left;
+            width: calc(25% - 40px);
+            box-shadow: -6px -6px 10px rgb(255 255 255 / 80%), 6px 6px 10px rgb(0 0 0 / 20%);
+            margin: 0 20px 40px 20px;
+            background-color: #f3f0f1;
+            border-radius: 10px;
+            overflow: hidden;
+            text-align: center;
+        }
+        
+        .slotList .singleSlot>h4,
+        .slotList .singleSlot address {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .slotList .singleSlot>h4 {
+            height: 60px;
+            background-color: rgba(255, 255, 255, 0.5);
+            font-size: 16px;
+            padding: 0 10px;
+        }
+        
+        .slotList .singleSlot address {
+            margin: 10px 0;
+            font-size: 12px;
+            padding: 0 10px;
+            height: 42px;
+        }
+        
+        .slotList .singleSlot .allVaccine {
+            margin-top: 10px;
+            display: table;
+            width: 100%;
+            background: #FFF;
+        }
+        
+        .slotList .singleSlot .allVaccine h5 {
+            display: table-caption;
+            padding-bottom: 10px;
+        }
+        
+        .slotList .singleSlot .allVaccine h5>span {
+            font-size: 12px;
+            background-color: #259225;
+            color: #FFF;
+            line-height: 20px;
+            padding: 0 10px;
+            border-radius: 10px;
+            display: inline-block;
+            vertical-align: bottom;
+        }
+        
+        .slotList .singleSlot .allVaccine .vaccine {
+            display: table-cell;
+            width: 50%;
+            padding: 15px 0;
+        }
+        
+        .slotList .singleSlot .allVaccine .vaccine.disable {
+            opacity: 0.2;
+        }
+        
+        .slotList .singleSlot .allVaccine .vaccine.disable * {
+            text-decoration: line-through;
+        }
+        
+        .slotList .singleSlot .allVaccine .vaccine h2 {
+            font-size: 14px;
+        }
+        
+        .slotList .singleSlot .allVaccine .vaccine h3 {
+            font-size: 40px;
+            padding: 5px 0;
+            color: #0d6efd;
+        }
+        
+        .slotList .singleSlot .allVaccine .vaccine h4 {
+            margin-top: 10px;
+            font-size: 14px;
+        }
+        
+        .slotList .singleSlot .allVaccine .vaccine h4:before {
+            content: "Rs. ";
+            color: #666;
+            font-weight: normal;
+        }
+        
+        .slotList .singleSlot .allVaccine .vaccine h4:empty:before {
+            content: "Free";
+        }
+        
+        .slotList .singleSlot .footer {
+            padding: 10px;
+            font-size: 14px;
+        }
+        
+        .slotList .singleSlot .footer span+span {
+            border-left: 1px solid #dddddd;
+            padding-left: 15px;
+            margin-left: 12px;
+        }
+        /* Responsive */
+        
+        @media (max-width: 1499px) {}
+        
+        @media (max-width: 1199px) {
+            .container {
+                width: 990px;
+            }
+            .slotList .singleSlot>h4 {
+                font-size: 14px;
+            }
+        }
+        
+        @media (max-width: 990px) {
+            .container {
+                width: 100%;
+            }
+            .top-panel label {
+                margin-left: 30px;
+                width: 120px;
+            }
+            .search {
+                width: 150px;
+            }
+            .slotList .singleSlot {
+                width: calc(50% - 40px);
+            }
+        }
+        
+        @media only screen and (max-width:767px) {
+            .search {
+                width: 80%;
+                display: block;
+                margin: 0 auto;
+            }
+            .top-panel label {
+                margin: 30px 0 0 0;
+                font-size: 12px;
+                line-height: 14px;
+                width: 90px;
+                padding: 10px;
+            }
+            .slotList .singleSlot {
+                width: calc(100% - 40px);
+            }
+        }
+    </style>
 <link rel="stylesheet" href="styles.31d6cfe0d16ae931b73c.css"></head>
+
 <body>
-  <app-root></app-root>
-<script src="runtime.30a83cafa3a551dacc1a.js" defer></script><script src="polyfills.c67014d4497c80b78bd2.js" defer></script><script src="main.a10720167cba5c0d95a4.js" defer></script>
+    <app-root></app-root>
+<script src="runtime.30a83cafa3a551dacc1a.js" defer></script><script src="polyfills.c67014d4497c80b78bd2.js" defer></script><script src="main.e62731096458a21b393d.js" defer></script>
 
 </body></html>
