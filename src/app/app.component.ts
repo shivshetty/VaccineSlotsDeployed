@@ -34,12 +34,13 @@ export class AppComponent {
       this.dateList[i]=new Date(dte.setDate(dte.getDate()+1));
       }
 
-      this.clicked=this.dateList[0];
+      this.clicked=this.dateList[0];    
 
       this.fetchSlots.getSpecData().subscribe(data=>{
         //console.warn(data);
         this.slots=this.ReturnNonZeroes(data);        
-        this.empty=this.ReturnEmpty(data);            
+        this.empty=this.ReturnEmpty(data);    
+        this.slots= this.slots.sort((a:any,b:any)=>a.center_id>b.center_id?1:-1)              
         //this.slot=this.alldata.sessions
       });      
   }
@@ -49,8 +50,10 @@ export class AppComponent {
     slotDate = formatDate(slotDate,'dd-MM-yyyy','en');
     //alert(slotDate);
     this.fetchSlots.getSpecData(slotDate).subscribe(data=>{
-      this.slots=this.ReturnNonZeroes(data);
+      this.slots=this.ReturnNonZeroes(data);      
       this.empty=this.ReturnEmpty(data);
+      this.slots= this.slots.sort((a:any,b:any)=>a.center_id>b.center_id?1:-1)      
+      this.empty= this.empty.sort((a:any,b:any)=>a.center_id>b.center_id?1:-1)      
     });      
     }
     
@@ -71,6 +74,8 @@ export class AppComponent {
       this.fetchSlots.getSpecData(slotDate).subscribe(data=>{
         this.slots=this.ReturnNonZeroes(data);
         this.empty=this.ReturnEmpty(data);
+        this.slots= this.slots.sort((a:any,b:any)=>a.center_id>b.center_id?1:-1)      
+        this.empty= this.empty.sort((a:any,b:any)=>a.center_id>b.center_id?1:-1)      
       });   
     }
 
