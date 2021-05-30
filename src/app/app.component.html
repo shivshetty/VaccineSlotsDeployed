@@ -19,7 +19,7 @@
                         
     </div>
     <div *ngFor="let item of dateList">
-    <a >{{item| date:'mediumDate'}}</a>
+    <a (click)="getNext(item)">{{item| date:'mediumDate'}}</a>
   </div>
     <div class="slotList">
         <div class="singleSlot" *ngFor="let item of slots | isValid :pincode:dose">

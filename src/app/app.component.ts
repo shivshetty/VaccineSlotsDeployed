@@ -25,7 +25,7 @@ export class AppComponent {
     this.formGroup=this.formBuilder.group({
       slotDate:new Date()     
     });
-    debugger;
+    
       let dte=new Date();
       this.dateList=[new Date()];
       for (let i = 1; i < 7; i++) {        
@@ -60,6 +60,16 @@ export class AppComponent {
         return  (datavals.available_capacity_dose1==0 && datavals.available_capacity_dose2==0 );
       });
     }
+
+    getNext(fetchFor:any){
+      var slotDate=formatDate(fetchFor,'dd-MM-yyyy','en');
+      this.fetchSlots.getSpecData(slotDate).subscribe(data=>{
+        this.slots=this.ReturnNonZeroes(data);
+        this.empty=this.ReturnEmpty(data);
+      });  
+    }
+
+
   
 
   /*Function required for later
