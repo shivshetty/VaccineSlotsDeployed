@@ -9,12 +9,14 @@ export class IsValidPipe implements PipeTransform {
   slots :any; 
   //transform(value: unknown, ...args: unknown[]): unknown {
    transform(value: any,pincode:string,dose:string): any {
-     console.warn(pincode);
-
+     //console.warn(pincode);
+ 
     //#region Filter by pincode
     if(pincode.length>0){
       this.slots= value.filter(function(search:any){
-      return search.pincode.toString().indexOf(pincode)>-1
+        console.warn(search.name.includes(pincode));
+        return (search.pincode.toString().indexOf(pincode)>-1 || search.name.toLowerCase() .indexOf(pincode.toLowerCase())> -1);
+      //search.pincode.toString().indexOf(pincode)>-1 || 
     });
     //return this.slots;
   }
