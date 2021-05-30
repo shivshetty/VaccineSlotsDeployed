@@ -23,8 +23,8 @@ export class IsValidPipe implements PipeTransform {
   }
 //#region Filter by dose type
       if(dose=="0") return this.slots;
-      if(dose=="1") return this.slots.filter(function(test:any){return test.available_capacity_dose1>1})
-      if(dose=="2") return this.slots.filter(function(test:any){return test.available_capacity_dose2>1 })
+      if(dose=="1") return this.slots.filter(function(test:any){return test.available_capacity_dose1>0})
+      if(dose=="2") return this.slots.filter(function(test:any){return test.available_capacity_dose2>0 })
       return this.slots;
      
   }
