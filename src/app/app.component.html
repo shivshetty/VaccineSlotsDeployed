@@ -8,11 +8,10 @@
         <label for="dose1">1st Dose</label>
         <input value="2" [(ngModel)]="dose" name="dosage" type="radio" id="dose2" class="checkbox" />
         <label for="dose2">2nd Dose</label>
-
     </div>
     <div class="mobile-scroll">
         <div class="dates">
-            <a (click)="getNext(item)" *ngFor="let item of dateList">{{item| date:'mediumDate'}}</a>
+            <a (click)="clicked = item;getNext(item)" [class.active]="clicked === item"  *ngFor="let item of dateList">{{item| date:'mediumDate'}}</a>
         </div>
     </div>
     <div class="slotList">

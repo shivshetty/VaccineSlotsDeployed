@@ -20,7 +20,7 @@ export class AppComponent {
   formGroup;
   testdate:any;
   dateList:any[];
-  selected :any;
+  clicked:any="";
 
   constructor(private fetchSlots :VaccinesService,private formBuilder: FormBuilder)  {
     this.formGroup=this.formBuilder.group({
@@ -28,10 +28,13 @@ export class AppComponent {
     });
     
       let dte=new Date();
+      
       this.dateList=[new Date()];
       for (let i = 1; i < 7; i++) {        
       this.dateList[i]=new Date(dte.setDate(dte.getDate()+1));
       }
+
+      this.clicked=this.dateList[0];
 
       this.fetchSlots.getSpecData().subscribe(data=>{
         //console.warn(data);
@@ -62,13 +65,24 @@ export class AppComponent {
       });
     }
 
-    getNext(fetchFor:any){
+    getNext(fetchFor:any){      
+      
       var slotDate=formatDate(fetchFor,'dd-MM-yyyy','en');
       this.fetchSlots.getSpecData(slotDate).subscribe(data=>{
         this.slots=this.ReturnNonZeroes(data);
         this.empty=this.ReturnEmpty(data);
-      });  
-    }  
+      });   
+    }
+
+    isActive(){
+      return "active";
+    }
+    isInActive(){
+      return "";
+    }
+
+
+  
 
   /*Function required for later
   showFiltered(values: any){
