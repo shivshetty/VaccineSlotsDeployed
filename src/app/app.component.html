@@ -9,14 +9,18 @@
 
 <div class="container">
     <div class="top-panel">
-        <input class="search" type="text" placeholder="Pincode" id="txtSearch1" [(ngModel)]="pincode" />
+        <input class="search" type="text" maxlength="6" placeholder="Search By Pincode" id="txtSearch1" [(ngModel)]="pincode" />
         <input value="0" [(ngModel)]="dose" name="dosage" type="radio" checked id="both" class="checkbox" />
         <label for="both">Both</label>
         <input value="1" [(ngModel)]="dose" name="dosage" type="radio" id="dose1" class="checkbox" />
         <label for="dose1">1st Dose</label>
         <input value="2" [(ngModel)]="dose" name="dosage" type="radio" id="dose2" class="checkbox" />
-        <label for="dose2">2nd Dose</label>
+        <label for="dose2">2nd Dose</label>                
+                        
     </div>
+    <div *ngFor="let item of dateList">
+    <a >{{item| date:'mediumDate'}}</a>
+  </div>
     <div class="slotList">
         <div class="singleSlot" *ngFor="let item of slots | isValid :pincode:dose">
             <h4>{{item.name}}</h4>
@@ -44,7 +48,7 @@
             </div>
             <div class="footer">
                 <span>{{item.pincode}}</span>
-                <span>{{item.from}} - {{item.to}}</span>
+                <span>{{item.from.substring(0,5)}} - {{item.to.substring(0.,5)}}</span>
             </div>
         </div>
     </div>
@@ -76,7 +80,7 @@
             </div>
             <div class="footer">
                 <span>{{item.pincode}}</span>
-                <span>{{item.from}} - {{item.to}}</span>
+                <span>{{item.from.substring(0.,5) }} - {{item.to.substring(0.,5) }}</span>
             </div>
         </div>
     </div>

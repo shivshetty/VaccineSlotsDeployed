@@ -18,16 +18,24 @@ export class AppComponent {
   pincode:string="";
   dose:string="0";
   formGroup;
+  testdate:any;
+  dateList:any[];
+
   constructor(private fetchSlots :VaccinesService,private formBuilder: FormBuilder)  {
     this.formGroup=this.formBuilder.group({
-      slotDate:new Date()      
+      slotDate:new Date()     
     });
-    
-console.warn(this.formGroup);
+    debugger;
+      let dte=new Date();
+      this.dateList=[new Date()];
+      for (let i = 1; i < 7; i++) {        
+      this.dateList[i]=new Date(dte.setDate(dte.getDate()+1));
+      }
+
       this.fetchSlots.getSpecData().subscribe(data=>{
         //console.warn(data);
         this.slots=this.ReturnNonZeroes(data);        
-        this.empty=this.ReturnEmpty(data);        
+        this.empty=this.ReturnEmpty(data);            
         //this.slot=this.alldata.sessions
       });      
   }
