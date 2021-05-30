@@ -13,6 +13,7 @@ import {formatDate} from '@angular/common';
 export class AppComponent {
   title = 'VaccineSlots';
   slots :any; 
+  empty:any;
   alldata:any; 
   pincode:string="";
   dose:string="0";
@@ -26,6 +27,7 @@ console.warn(this.formGroup);
       this.fetchSlots.getSpecData().subscribe(data=>{
         //console.warn(data);
         this.slots=this.ReturnNonZeroes(data);        
+        this.empty=this.ReturnEmpty(data);        
         //this.slot=this.alldata.sessions
       });      
   }
@@ -35,13 +37,19 @@ console.warn(this.formGroup);
     slotDate = formatDate(slotDate,'dd-MM-yyyy','en');
     //alert(slotDate);
     this.fetchSlots.getSpecData(slotDate).subscribe(data=>{
-      this.slots=this.ReturnNonZeroes(data);         
+      this.slots=this.ReturnNonZeroes(data);
+      this.empty=this.ReturnEmpty(data);
     });      
     }
     
     ReturnNonZeroes(data:any){
       return data.sessions.filter(function(datavals:any){
         return  (datavals.available_capacity_dose1>0 || datavals.available_capacity_dose2>0 );
+      });
+    }
+    ReturnEmpty(data:any){
+      return data.sessions.filter(function(datavals:any){
+        return  (datavals.available_capacity_dose1==0 && datavals.available_capacity_dose2==0 );
       });
     }
   
