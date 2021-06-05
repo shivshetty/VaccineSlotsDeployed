@@ -213,6 +213,14 @@
             animation-name: fade;
             animation-duration: 0.5s;
             opacity: 1;
+            transition: ease all 0.2s;
+            position: relative;
+            top: 0;
+        }
+        
+        .slotList .singleSlot:hover {
+            box-shadow: -8px -8px 16px rgb(255 255 255 / 80%), 8px 8px 16px rgb(0 0 0 / 20%);
+            top: -5px;
         }
         
         @keyframes fade {
