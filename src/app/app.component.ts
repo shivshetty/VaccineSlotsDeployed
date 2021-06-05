@@ -21,11 +21,19 @@ export class AppComponent {
   testdate:any;
   dateList:any[];
   clicked:any="";
+  districtList:any;
+  selectedDist:string="392";
 
   constructor(private fetchSlots :VaccinesService,private formBuilder: FormBuilder)  {
     this.formGroup=this.formBuilder.group({
       slotDate:new Date()     
     });
+
+      this.fetchSlots.getDistricts().subscribe(data=>{
+        //console.warn(data);
+          this.districtList=data;
+          //console.warn(this.districtList);
+      });
     
       let dte=new Date();
       
@@ -36,7 +44,7 @@ export class AppComponent {
 
       this.clicked=this.dateList[0];    
 
-      this.fetchSlots.getSpecData().subscribe(data=>{
+      this.fetchSlots.getSpecData(this.selectedDist).subscribe(data=>{
         //console.warn(data);
         this.slots=this.ReturnNonZeroes(data);        
         this.empty=this.ReturnEmpty(data);    
@@ -49,7 +57,7 @@ export class AppComponent {
     var slotDate = formData['slotDate'];    
     slotDate = formatDate(slotDate,'dd-MM-yyyy','en');
     //alert(slotDate);
-    this.fetchSlots.getSpecData(slotDate).subscribe(data=>{
+    this.fetchSlots.getSpecData(this.selectedDist,slotDate).subscribe(data=>{
       this.slots=this.ReturnNonZeroes(data);      
       this.empty=this.ReturnEmpty(data);
       this.slots= this.slots.sort((a:any,b:any)=>a.center_id>b.center_id?1:-1)      
@@ -68,10 +76,13 @@ export class AppComponent {
       });
     }
 
-    getNext(fetchFor:any){      
-      
+    getNext(fetchFor:any){  
+      console.warn("clicked");
+      console.warn(this.clicked);    
+      //console.warn(this.selectedDist);
       var slotDate=formatDate(fetchFor,'dd-MM-yyyy','en');
-      this.fetchSlots.getSpecData(slotDate).subscribe(data=>{
+      //console.warn(slotDate);
+      this.fetchSlots.getSpecData(this.selectedDist, slotDate).subscribe(data=>{
         this.slots=this.ReturnNonZeroes(data);
         this.empty=this.ReturnEmpty(data);
         this.slots= this.slots.sort((a:any,b:any)=>a.center_id>b.center_id?1:-1)      
@@ -79,7 +90,20 @@ export class AppComponent {
       });   
     }
 
-    isActive(){
+    distChange(){
+      console.warn('distChange');
+      console.warn(this.selectedDist);
+      console.warn(this.clicked);
+      var slotDate=formatDate(this.clicked,'dd-MM-yyyy','en');
+      this.fetchSlots.getSpecData(this.selectedDist,slotDate).subscribe(data=>{
+        this.slots=this.ReturnNonZeroes(data);
+        this.empty=this.ReturnEmpty(data);
+        this.slots= this.slots.sort((a:any,b:any)=>a.center_id>b.center_id?1:-1)      
+        this.empty= this.empty.sort((a:any,b:any)=>a.center_id>b.center_id?1:-1)      
+      }); 
+    }
+
+    isActive(){      
       return "active";
     }
     isInActive(){
