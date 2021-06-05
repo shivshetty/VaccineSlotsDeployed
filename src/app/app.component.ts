@@ -1,5 +1,5 @@
 import { elementEventFullName } from '@angular/compiler/src/view_compiler/view_compiler';
-import { Component } from '@angular/core';
+import { Component, HostListener,AfterViewInit, ElementRef, OnInit, ViewChild, ViewEncapsulation, AfterViewChecked } from '@angular/core';
 import {VaccinesService} from './vaccines.service'
 import { IsValidPipe } from "./is-valid.pipe";
 import { FormBuilder } from '@angular/forms';
@@ -10,7 +10,7 @@ import {formatDate} from '@angular/common';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']  
 })
-export class AppComponent {
+export class AppComponent implements AfterViewInit{
   title = 'VaccineSlots';
   slots :any; 
   empty:any;
@@ -23,6 +23,7 @@ export class AppComponent {
   clicked:any="";
   districtList:any;
   selectedDist:string="392";
+  age:string="0";
 
   constructor(private fetchSlots :VaccinesService,private formBuilder: FormBuilder)  {
     this.formGroup=this.formBuilder.group({
@@ -118,4 +119,20 @@ export class AppComponent {
     console.warn('function called')
   }
   */
+ 
+  scrolled: boolean = false;
+  @HostListener("window:scroll", [])
+  onWindowScroll() {
+      this.scrolled = window.scrollY > 250;
+  }
+  ngAfterViewInit() {
+    var width = this.myIdentifier.nativeElement.offsetWidth;
+    var height = this.myIdentifier.nativeElement.offsetHeight;
+   
+    console.log('Width:' + width);
+    console.log('Height: ' + height);
+  }
+  
+  @ViewChild('myIdentifier')
+  myIdentifier!: ElementRef;
 }

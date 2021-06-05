@@ -11,7 +11,7 @@
 <div class="container">
     <div class="top-panel">
         <input class="search" type="text" placeholder="Pincode/Name/Address" id="txtSearch1" [(ngModel)]="searchText" />
-        <input value="0" [(ngModel)]="dose" name="dosage" type="radio" checked id="both" class="checkbox" />
+        <input value="0" [(ngModel)]="dose" name="dosage" type="radio" id="both" checked class="checkbox" />
         <label for="both">Both</label>
         <input value="1" [(ngModel)]="dose" name="dosage" type="radio" id="dose1" class="checkbox" />
         <label for="dose1">1st Dose</label>
@@ -23,41 +23,51 @@
             <a (click)="clicked = item;getNext(item)" [class.active]="clicked === item" *ngFor="let item of dateList">{{item| date:'mediumDate'}}</a>
         </div>
     </div>
-    <div class="slotList">
-        <div class="singleSlot" *ngFor="let item of slots | isValid :searchText:dose" [ngClass]="{'covaxin': item.vaccine == 'COVAXIN'}">
-            <h4>{{item.name}}</h4>
-            <address>{{item.address}}</address>
-            <div class="allVaccine">
-                <h5>{{item.vaccine}} <span [ngClass]="{'age18': item.min_age_limit == 18}">{{item.min_age_limit}}+</span></h5>
-                <div class="vaccine" [ngClass]="{'disable': item.available_capacity_dose1 == 0}">
-                    <h2>1st Dose</h2>
-                    <h3>{{item.available_capacity_dose1}}</h3>
-                    <h4>
-                        <div *ngIf="item.fee > 0;then content else other_content"></div>
-                        <ng-template #content>{{item.fee}}</ng-template>
-                        <ng-template #other_content></ng-template>
-                    </h4>
+    <div class="fixedAge" #myIdentifier>
+        <div class="ageFilter" [ngClass]="{ className: scrolled }">
+            <input value="0" [(ngModel)]="age" name="ageFilter" type="radio" id="bothAge" checked class="checkbox" />
+            <label for="bothAge">All</label>
+            <input value="1" [(ngModel)]="age" name="ageFilter" type="radio" id="age18" class="checkbox" />
+            <label for="age18">18+</label>
+            <input value="2" [(ngModel)]="age" name="ageFilter" type="radio" id="age45" class="checkbox" />
+            <label for="age45">45+</label>
+        </div>
+        <div class="slotList">
+            <div class="singleSlot" *ngFor="let item of slots | isValid :searchText:dose:age" [ngClass]="{'covaxin': item.vaccine == 'COVAXIN'}">
+                <h4>{{item.name}}</h4>
+                <address>{{item.address}}</address>
+                <div class="allVaccine">
+                    <h5>{{item.vaccine}} <span [ngClass]="{'age18': item.min_age_limit == 18}">{{item.min_age_limit}}+</span></h5>
+                    <div class="vaccine" [ngClass]="{'disable': item.available_capacity_dose1 == 0}">
+                        <h2>1st Dose</h2>
+                        <h3>{{item.available_capacity_dose1}}</h3>
+                        <h4>
+                            <div *ngIf="item.fee > 0;then content else other_content"></div>
+                            <ng-template #content>{{item.fee}}</ng-template>
+                            <ng-template #other_content></ng-template>
+                        </h4>
+                    </div>
+                    <div class="vaccine" [ngClass]="{'disable': item.available_capacity_dose2 == 0}">
+                        <h2>2nd Dose</h2>
+                        <h3>{{item.available_capacity_dose2}}</h3>
+                        <h4>
+                            <div *ngIf="item.fee > 0;then content else other_content"></div>
+                            <ng-template #content>{{item.fee}}</ng-template>
+                            <ng-template #other_content></ng-template>
+                        </h4>
+                    </div>
                 </div>
-                <div class="vaccine" [ngClass]="{'disable': item.available_capacity_dose2 == 0}">
-                    <h2>2nd Dose</h2>
-                    <h3>{{item.available_capacity_dose2}}</h3>
-                    <h4>
-                        <div *ngIf="item.fee > 0;then content else other_content"></div>
-                        <ng-template #content>{{item.fee}}</ng-template>
-                        <ng-template #other_content></ng-template>
-                    </h4>
+                <div class="footer">
+                    <span>{{item.pincode}}</span>
+                    <span>{{item.from.substring(0,5)}} - {{item.to.substring(0.,5)}}</span>
                 </div>
-            </div>
-            <div class="footer">
-                <span>{{item.pincode}}</span>
-                <span>{{item.from.substring(0,5)}} - {{item.to.substring(0.,5)}}</span>
             </div>
         </div>
     </div>
     <input type="checkbox" id="panel" class="showPanel" />
     <h2 class="filledup"><label for="panel">- Housefull -</label></h2>
     <div class="slotList empty">
-        <div class="singleSlot" *ngFor="let item of empty | isValid :searchText:dose">
+        <div class="singleSlot" *ngFor="let item of empty | isValid :searchText:dose:age">
             <h4>{{item.name}}</h4>
             <address>{{item.address}}</address>
             <div class="allVaccine">
