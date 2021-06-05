@@ -77,8 +77,8 @@ export class AppComponent {
     }
 
     getNext(fetchFor:any){  
-      console.warn("clicked");
-      console.warn(this.clicked);    
+      //console.warn("clicked");
+      //console.warn(this.clicked);    
       //console.warn(this.selectedDist);
       var slotDate=formatDate(fetchFor,'dd-MM-yyyy','en');
       //console.warn(slotDate);
@@ -91,9 +91,9 @@ export class AppComponent {
     }
 
     distChange(){
-      console.warn('distChange');
-      console.warn(this.selectedDist);
-      console.warn(this.clicked);
+      // console.warn('distChange');
+      // console.warn(this.selectedDist);
+      // console.warn(this.clicked);
       var slotDate=formatDate(this.clicked,'dd-MM-yyyy','en');
       this.fetchSlots.getSpecData(this.selectedDist,slotDate).subscribe(data=>{
         this.slots=this.ReturnNonZeroes(data);
