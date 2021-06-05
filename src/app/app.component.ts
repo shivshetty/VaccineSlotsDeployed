@@ -15,7 +15,7 @@ export class AppComponent {
   slots :any; 
   empty:any;
   alldata:any; 
-  pincode:string="";
+  searchText:string="";
   dose:string="0";
   formGroup;
   testdate:any;
