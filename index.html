@@ -108,6 +108,26 @@
             border: none !important;
         }
         
+        .slotList {
+            position: relative;
+        }
+        
+        .slotList:before {
+            content: "";
+            position: absolute;
+            width: 36px;
+            height: calc(100% - 186px);
+            border-top: 4px dashed #253f92;
+            border-bottom: 4px dashed #253f92;
+            border-left: 4px dashed #253f92;
+            left: -20px;
+            top: 76px;
+        }
+        
+        .slotList.empty:before {
+            display: none;
+        }
+        
         .slotList:after {
             content: "";
             clear: both;
@@ -163,7 +183,7 @@
             text-align: center;
         }
         
-        .top-panel .checkbox {
+        .checkbox {
             display: none;
         }
         
@@ -189,9 +209,11 @@
             text-align: center;
             font-style: italic;
             opacity: 0.2;
-            border-top: 1px solid;
-            border-bottom: 1px solid;
-            padding: 20px;
+            border: 1px solid;
+            padding: 173px 0;
+            position: unset;
+            width: calc(100% + 16px);
+            margin-left: -16px;
         }
         
         .slotList.empty {
@@ -252,6 +274,9 @@
             font-size: 11px;
             padding: 0 10px;
             height: 42px;
+            line-height: 1;
+            overflow: auto;
+            display: grid;
         }
         
         .slotList .singleSlot .allVaccine {
@@ -463,6 +488,52 @@
             border-left: 10px solid transparent;
             border-right: 10px solid transparent;
         }
+        
+        .fixedAge {
+            position: relative;
+        }
+        
+        .ageFilter {
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            width: 50px;
+            align-items: flex-end;
+            top: 106px;
+            left: -66px;
+        }
+        
+        .ageFilter.stable {
+            position: fixed;
+            top: 10%;
+            left: calc((100vw - 1288px) / 2);
+        }
+        
+        .ageFilter.stable.floating {
+            position: absolute;
+            top: auto;
+            bottom: 106px;
+            left: -66px;
+        }
+        
+        .ageFilter label {
+            cursor: pointer;
+            text-align: center;
+            font-size: 16px;
+            line-height: 36px;
+            border-top-left-radius: 8px;
+            border-bottom-left-radius: 8px;
+            position: relative;
+            background-color: #dadada;
+            margin-bottom: 10px;
+            width: 40px;
+        }
+        
+        .ageFilter input:checked+label {
+            background-color: #253f92;
+            color: #FFF;
+            width: 50px;
+        }
         /* Responsive */
         
         @media (max-width: 1499px) {}
@@ -473,6 +544,27 @@
             }
             .slotList .singleSlot>h4 {
                 font-size: 14px;
+            }
+            .slotList:before {
+                width: 20px;
+                left: 10px;
+            }
+            .ageFilter {
+                left: -15px;
+            }
+            .slotList {
+                width: 99%;
+                margin-left: 21px;
+            }
+            .slotList:empty:before {
+                margin-left: 13px;
+                width: calc(95% + 16px);
+            }
+            .ageFilter.stable {
+                left: calc((100vw - 1021px) / 2);
+            }
+            .ageFilter.stable.floating {
+                left: -15px;
             }
         }
         
@@ -489,6 +581,21 @@
             }
             .slotList .singleSlot {
                 width: calc(50% - 40px);
+            }
+            .ageFilter,
+            .slotList:before,
+            .ageFilter.stable.floating {
+                left: 0;
+            }
+            .slotList {
+                width: 93%;
+                margin-left: 46px;
+            }
+            .ageFilter.stable {
+                left: 0;
+            }
+            .slotList:empty:before {
+                margin-left: 3px;
             }
         }
         
@@ -512,7 +619,7 @@
                 overflow-x: auto;
             }
             .mobile-scroll .dates {
-                width: 700px;
+                width: 750px;
                 margin: 20px 0;
             }
             .pageTitle,
@@ -521,6 +628,12 @@
             }
             .pageTitle br {
                 display: block;
+            }
+            .ageFilter.stable {
+                top: 26%;
+            }
+            .slotList:empty:before {
+                width: 90%;
             }
         }
     </style>
@@ -540,6 +653,6 @@
 
 <body>
     <app-root></app-root>
-<script src="runtime.30a83cafa3a551dacc1a.js" defer></script><script src="polyfills.c67014d4497c80b78bd2.js" defer></script><script src="main.0096d219454ac0d83b5c.js" defer></script>
+<script src="runtime.30a83cafa3a551dacc1a.js" defer></script><script src="polyfills.c67014d4497c80b78bd2.js" defer></script><script src="main.5f343abfe197e198d4e0.js" defer></script>
 
 </body></html>
