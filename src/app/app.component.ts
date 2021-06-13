@@ -51,7 +51,7 @@ export class AppComponent implements AfterViewInit{
         this.empty=this.ReturnEmpty(data);    
         this.slots= this.slots.sort((a:any,b:any)=>a.center_id>b.center_id?1:-1)              
         //this.slot=this.alldata.sessions
-      });      
+      });
   }
   onSubmit(formData:any) {
     //debugger;
@@ -121,16 +121,17 @@ export class AppComponent implements AfterViewInit{
   */
  
   scrolled: boolean = false;
-  @HostListener("window:scroll", [])
-  onWindowScroll() {
-      this.scrolled = window.scrollY > 250;
-  }
+  height: number = 0;
   ngAfterViewInit() {
     var width = this.myIdentifier.nativeElement.offsetWidth;
-    var height = this.myIdentifier.nativeElement.offsetHeight;
+    this.height = this.myIdentifier.nativeElement.offsetHeight;
    
     console.log('Width:' + width);
-    console.log('Height: ' + height);
+    console.log('Height: ' + this.height);
+  }
+  @HostListener("window:scroll", [])
+  onWindowScroll() {
+      this.scrolled = window.scrollY > this.height;
   }
   
   @ViewChild('myIdentifier')

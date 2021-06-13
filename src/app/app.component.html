@@ -67,7 +67,7 @@
     <input type="checkbox" id="panel" class="showPanel" />
     <h2 class="filledup"><label for="panel">- Housefull -</label></h2>
     <div class="slotList empty">
-        <div class="singleSlot" *ngFor="let item of empty | isValid :searchText:dose:age">
+        <div class="singleSlot" *ngFor="let item of empty | isValid :searchText:dose:age" [ngClass]="{'covaxin': item.vaccine == 'COVAXIN'}">
             <h4>{{item.name}}</h4>
             <address>{{item.address}}</address>
             <div class="allVaccine">
