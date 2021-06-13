@@ -10,7 +10,7 @@ import {formatDate} from '@angular/common';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']  
 })
-export class AppComponent implements AfterViewInit{
+export class AppComponent implements AfterViewChecked{
   title = 'VaccineSlots';
   slots :any; 
   empty:any;
@@ -121,17 +121,15 @@ export class AppComponent implements AfterViewInit{
   */
  
   scrolled: boolean = false;
+  floating: boolean = false;
   height: number = 0;
-  ngAfterViewInit() {
-    var width = this.myIdentifier.nativeElement.offsetWidth;
+  ngAfterViewChecked() {
     this.height = this.myIdentifier.nativeElement.offsetHeight;
-   
-    console.log('Width:' + width);
-    console.log('Height: ' + this.height);
   }
   @HostListener("window:scroll", [])
   onWindowScroll() {
-      this.scrolled = window.scrollY > this.height;
+      this.scrolled = window.scrollY > 250;
+      this.floating = window.scrollY > (this.height - 100);
   }
   
   @ViewChild('myIdentifier')

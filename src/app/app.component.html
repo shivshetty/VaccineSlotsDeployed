@@ -24,7 +24,7 @@
         </div>
     </div>
     <div class="fixedAge" #myIdentifier>
-        <div class="ageFilter" [ngClass]="{ className: scrolled }">
+        <div class="ageFilter" [ngClass]="{ stable: scrolled, floating: floating }">
             <input value="0" [(ngModel)]="age" name="ageFilter" type="radio" id="bothAge" checked class="checkbox" />
             <label for="bothAge">All</label>
             <input value="1" [(ngModel)]="age" name="ageFilter" type="radio" id="age18" class="checkbox" />
