@@ -2,9 +2,9 @@
     <select [(ngModel)]="selectedDist" name="" id="" (change)="distChange()" class="districtName">
         <option value="395">Mumbai</option>
         <option value="389">Nashik</option>
-        <option value="394">Palghar</option>
-        <option value="363">Pune</option>
         <option value="392">Thane</option>
+        <option value="394">Palghar</option>
+        <option value="363">Pune</option>        
         <option disabled>-----------</option>
         <option *ngFor="let dist of districtList.districts" value={{dist.district_id}}>{{dist.district_name}}</option>
     </select><br /> Vaccination Slot Availability</h1>
